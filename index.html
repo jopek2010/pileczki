@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Dwie piłki</title>
+  <title>Piłka JS Canvas</title>
   <style>
     canvas {
       border: 1px solid black;
@@ -11,50 +11,37 @@
 </head>
 <body>
 
-<canvas id="canvas" width="800" height="400"></canvas>
+<canvas id="canvas" width="400" height="400"></canvas>
 
 <script>
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
 
+  let x = 5;
+  let speed = 10;
   const radius = 12;
 
-
-  let x1 = 50;
-  let speedX = 10;
-
-
-  let y2 = 50;
-  let speedY = 8;
-
   function draw() {
+
     ctx.fillStyle = "rgb(151, 244, 247)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = "black";
-    ctx.beginPath();
-    ctx.moveTo(400, 0);
-    ctx.lineTo(400, 400);
-    ctx.stroke();
 
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "black";
     ctx.beginPath();
-    ctx.arc(x1, 200, radius, 0, Math.PI * 2);
+    ctx.arc(x, 221, radius, 0, Math.PI * 2);
     ctx.fill();
 
-    x1 += speedX;
-    if (x1 >= 400 - radius || x1 <= radius) {
-      speedX = -speedX;
+
+    x += speed;
+
+    if (x >= canvas.width - radius) {
+      speed = -speed;
     }
 
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(600, y2, radius, 0, Math.PI * 2);
-    ctx.fill();
 
-    y2 += speedY;
-    if (y2 >= canvas.height - radius || y2 <= radius) {
-      speedY = -speedY;
+    if (x <= radius) {
+      speed = -speed;
     }
 
     requestAnimationFrame(draw);
